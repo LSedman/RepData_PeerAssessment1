@@ -39,7 +39,7 @@ hist(perDay, breaks=10, xlab="Number of steps taken per day",
      main="Daily activity")
 ```
 
-![plot of chunk unnamed-chunk-2](figure/unnamed-chunk-2.png) 
+![plot of chunk histogram](figure/histogram.png) 
 
 Furthermore, I calculated the mean and median number of steps taken daily:
 
@@ -71,7 +71,7 @@ plot(int[,1], int[,2], type="l", main="Average daily activity pattern",
      xlab="Interval", ylab="Average number of steps")
 ```
 
-![plot of chunk unnamed-chunk-4](figure/unnamed-chunk-4.png) 
+![plot of chunk timeSeries](figure/timeSeries.png) 
 
 The time-interval with the maximum average activity was:
 
@@ -126,7 +126,7 @@ hist(perDay2, breaks=10, xlab="Number of steps per day",
      main="Daily activity, including imputed values")
 ```
 
-![plot of chunk unnamed-chunk-8](figure/unnamed-chunk-8.png) 
+![plot of chunk histogram_Imputed](figure/histogram_Imputed.png) 
 
 ```r
 mean(perDay2)
@@ -169,6 +169,6 @@ xyplot(steps ~ interval | Weekd, data = int2, layout=c(1,2), xlab="Interval",
        ylab="Number of steps", type="l")
 ```
 
-![plot of chunk unnamed-chunk-9](figure/unnamed-chunk-9.png) 
+![plot of chunk timeSeries_WeekendsWeekdays](figure/timeSeries_WeekendsWeekdays.png) 
 
 The plots indicate that there may indeed be a difference between the actvity patterns in the weekends and during weekdays.

@@ -11,7 +11,7 @@ Prior to data analysis, the script:
 3. Unzipped the file if it hadn't already been done.  
 4. Read in the data.  
 
-```{r}
+```{r getData}
 #setwd("Documents/Learn/Online courses/DataScience/Reproducible research/week2/RepData_PeerAssessment1/")
 
 url <- "https://d396qusza40orc.cloudfront.net/repdata%2Fdata%2Factivity.zip"
@@ -31,7 +31,7 @@ act <- read.csv("activity.csv")
 
 I first wanted to explore the variation in the number steps taken. Therefore, I created a histogram of the total number of steps taken each day:
 
-```{r}
+```{r histogram}
 perDay <- tapply(act$steps, act$date, sum)
 hist(perDay, breaks=10, xlab="Number of steps taken per day", 
      main="Daily activity")
@@ -39,7 +39,7 @@ hist(perDay, breaks=10, xlab="Number of steps taken per day",
 
 Furthermore, I calculated the mean and median number of steps taken daily:
 
-```{r}
+```{r meanAndMedian1}
 mean(perDay, na.rm=T)
 median(perDay, na.rm=T)
 ```
@@ -48,7 +48,7 @@ median(perDay, na.rm=T)
 
 Activity is expected to vary at different times of the day. To analyze this, I created a time series plot of the number of steps taken in each 5-minute interval, averaged across the two-month period.
 
-```{r}
+```{r timeSeries}
 int <- aggregate(x = act$steps, by = list(act$interval), FUN = "mean", na.rm=T)
 plot(int[,1], int[,2], type="l", main="Average daily activity pattern",
      xlab="Interval", ylab="Average number of steps")
@@ -56,7 +56,7 @@ plot(int[,1], int[,2], type="l", main="Average daily activity pattern",
 
 The time-interval with the maximum average activity was:
 
-```{r}
+```{r maxInterval}
 as.numeric(subset(int[,1], int[,2]==max(int[,2])))
 ```
 
@@ -64,13 +64,13 @@ as.numeric(subset(int[,1], int[,2]==max(int[,2])))
 
 The number of missing values in this data set was large:
 
-```{r}
+```{r noOfNas}
 sum(is.na(act))
 ```
 
 To see if the missing values could have a large influence on the data analysis, I created a new data set with the missing values changed to the mean of that 5-minute interval.
 
-```{r}
+```{r imputedData}
 n <- length(act[,1])
 imputed <- vector()
 length(imputed) <- n
@@ -89,7 +89,7 @@ act[,1] <- imputed
 
 Using this new data with imputed values, I created a new histogram and once more calculated the mean and median number of steps taken per day.
 
-```{r}
+```{r histogram_Imputed}
 perDay2 <- tapply(act$steps, act$date, sum)
 hist(perDay2, breaks=10, xlab="Number of steps per day", 
      main="Daily activity, including imputed values")
@@ -103,7 +103,7 @@ Compared to the original data, the new distribution of the number of steps per d
 
 Finally, to see if the activity pattern was different on weekends compared to the rest of the week, I created a new factor variable that indicated if the data was collected on a weekend or on a weekday. I then created time series plots of the average number of steps taken in each 5-minute interval, averaged across all weekend days or weekdays. The data used to create these plots included the imputed values.
 
-```{r}
+```{r timeSeries_WeekendsWeekdays}
 act[,2] <- as.Date(act[,2])
 for(i in 1:n) {
        if(weekdays(act[i,"date"])=="Saturday"|weekdays(act[i,"date"])=="Sunday"){
