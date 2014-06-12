@@ -166,7 +166,7 @@ colnames(int2) <- c("interval", "Weekd", "steps")
 
 library(lattice)
 xyplot(steps ~ interval | Weekd, data = int2, layout=c(1,2), xlab="Interval", 
-       ylab="Number of steps", type="l")
+       ylab="Average number of steps", type="l")
 ```
 
 ![plot of chunk timeSeries_WeekendsWeekdays](figure/timeSeries_WeekendsWeekdays.png) 

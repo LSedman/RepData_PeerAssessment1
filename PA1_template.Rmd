@@ -118,7 +118,7 @@ colnames(int2) <- c("interval", "Weekd", "steps")
 
 library(lattice)
 xyplot(steps ~ interval | Weekd, data = int2, layout=c(1,2), xlab="Interval", 
-       ylab="Number of steps", type="l")
+       ylab="Average number of steps", type="l")
 ```
 
 The plots indicate that there may indeed be a difference between the actvity patterns in the weekends and during weekdays.
