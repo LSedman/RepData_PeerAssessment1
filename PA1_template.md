@@ -2,7 +2,8 @@
 
 
 ## Loading and preprocessing the data
-```{r}
+
+```r
 # set correct working directory
 #setwd("Documents/Learn/Online courses/DataScience/Reproducible research/week2/RepData_PeerAssessment1/")
 
@@ -21,26 +22,54 @@ act <- read.csv("activity.csv")
 
 ## What is mean total number of steps taken per day?
 
-```{r}
+
+```r
 perDay <- tapply(act$steps, act$date, sum)
 hist(perDay, breaks=10, xlab="Number of steps taken per day", 
      main="Daily activity")
+```
+
+![plot of chunk unnamed-chunk-2](figure/unnamed-chunk-2.png) 
+
+```r
 mean(perDay, na.rm=T)
+```
+
+```
+## [1] 10766
+```
+
+```r
 median(perDay, na.rm=T)
+```
+
+```
+## [1] 10765
 ```
 
 ## What is the average daily activity pattern?
 
-```{r}
+
+```r
 int <- aggregate(x = act$steps, by = list(act$interval), FUN = "mean", na.rm=T)
 plot(int[,1], int[,2], type="l", main="Average daily activity pattern",
      xlab="Interval", ylab="Average number of steps taken")
 ```
 
+![plot of chunk unnamed-chunk-3](figure/unnamed-chunk-3.png) 
+
 ## Imputing missing values
 
-```{r}
+
+```r
 sum(is.na(act))
+```
+
+```
+## [1] 2304
+```
+
+```r
 # NA <- mean for that 5-min interval
 n <- length(act[,1])
 imputed <- vector()
@@ -59,13 +88,29 @@ act[,1] <- imputed
 perDay2 <- tapply(act$steps, act$date, sum)
 hist(perDay2, breaks=10, xlab="Number of steps taken per day", 
      main="Daily activity")
-mean(perDay2)
-median(perDay2)
+```
 
+![plot of chunk unnamed-chunk-4](figure/unnamed-chunk-4.png) 
+
+```r
+mean(perDay2)
+```
+
+```
+## [1] 10766
+```
+
+```r
+median(perDay2)
+```
+
+```
+## [1] 10766
 ```
 
 ## Are there differences in activity patterns between weekdays and weekends?
-```{r}
+
+```r
 act[,2] <- as.Date(act[,2])
 for(i in 1:n) {
        if(weekdays(act[i,"date"])=="Saturday"|weekdays(act[i,"date"])=="Sunday"){
@@ -81,5 +126,6 @@ colnames(int2) <- c("interval", "Weekd", "steps")
 library(lattice)
 xyplot(steps ~ interval | Weekd, data = int2, layout=c(1,2), xlab="Interval", 
        ylab="Number of steps", type="l")
-
 ```
+
+![plot of chunk unnamed-chunk-5](figure/unnamed-chunk-5.png) 
