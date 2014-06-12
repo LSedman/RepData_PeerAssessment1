@@ -103,7 +103,7 @@ Compared to the original data, the new distribution of the number of steps per d
 
 Finally, to see if the activity pattern was different on weekends compared to the rest of the week, I created a new factor variable that indicated if the data was collected on a weekend or on a weekday. I then created time series plots of the average number of steps taken in each 5-minute interval, averaged across all weekend days or weekdays. The data used to create these plots included the imputed values.
 
-```{r timeSeries_WeekendsWeekdays}
+```{r timeSeries_WeekendWeekday}
 act[,2] <- as.Date(act[,2])
 for(i in 1:n) {
        if(weekdays(act[i,"date"])=="Saturday"|weekdays(act[i,"date"])=="Sunday"){
@@ -118,7 +118,7 @@ colnames(int2) <- c("interval", "Weekd", "steps")
 
 library(lattice)
 xyplot(steps ~ interval | Weekd, data = int2, layout=c(1,2), xlab="Interval", 
-       ylab="Average number of steps", type="l")
+       ylab="Average number of steps", type="l", main="Comparision of activity patterns on weekdays and weekends")
 ```
 
 The plots indicate that there may indeed be a difference between the actvity patterns in the weekends and during weekdays.
